@@ -215,7 +215,7 @@ install-doc-symlink:
 	for FILE in $(shell cd doc ; ls) ; do \
 		ln -fs "$(PWD)/doc/$$FILE" "${DESTDIR}${DOCDIR}" ; done
 
-install love: install-doc install-man install-www
+install love: install-doc install-man install-www install-pkgconfig
 	cd libr && ${MAKE} install
 	cd binr && ${MAKE} install
 	cd shlr && ${MAKE} install
@@ -246,6 +246,11 @@ symstall-www:
 	mkdir -p "${DESTDIR}${WWWROOT}"
 	for FILE in $(shell cd shlr/www ; ls) ; do \
 		ln -fs "$(PWD)/shlr/www/$$FILE" "$(DESTDIR)$(WWWROOT)" ; done
+
+install-pkgconfig:
+	@${INSTALL_DIR} "${DESTDIR}${LIBDIR}/pkgconfig"
+	for FILE in $(shell cd pkgcfg ; ls *.pc) ; do \
+		cp -f "$(PWD)/pkgcfg/$$FILE" "${DESTDIR}${LIBDIR}/pkgconfig/$$FILE" ; done
 
 install-pkgconfig-symlink:
 	@${INSTALL_DIR} "${DESTDIR}${LIBDIR}/pkgconfig"
