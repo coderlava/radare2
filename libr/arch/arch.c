@@ -85,7 +85,7 @@ R_API bool r_arch_set_syntax(RArch *a, int syntax) {
 
 R_API bool r_arch_set_endian(RArch *a, RArchEndian endian) {
 	r_return_val_if_fail (a, false);
-        switch (a->cur->endian) {
+	switch (a->cur->endian) {
 	case R_SYS_ENDIAN_LITTLE:
 	case R_SYS_ENDIAN_BIG:
 	case R_SYS_ENDIAN_NONE:
@@ -146,16 +146,16 @@ R_API bool r_arch_add(RArch *a, RArchPlugin *foo) {
         if (foo->init) {
                 foo->init (a);
         }
-	if (is_valid (a, foo->name)) {
-		return false;
+	if (!is_valid (a, foo->name)) {
+		r_list_append (a->plugins, foo);
+		return true;
 	}
-	r_list_append (a->plugins, foo);
-	return true;
+	return false;
 }
 
 R_API bool r_arch_del(RArch *a, const char *name) {
 	r_return_val_if_fail (a, false);
-        /* TODO: Implement r_arch_del */
-        return false;
+	/* TODO: Implement r_arch_del */
+	return false;
 }
 

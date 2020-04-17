@@ -6,7 +6,7 @@ bool test_arch_bf(void) {
 	bool res;
 
 	RArch *a = r_arch_new ();
-	mu_assert_null (a, "r_arch_new");
+	mu_assert_notnull (a, "r_arch_new");
 
 	res = r_arch_use (a, "bf");
 	mu_assert ("r_arch_use", res);
