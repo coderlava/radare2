@@ -17,7 +17,7 @@ bool test_arch_bf(void) {
 	res = r_arch_encode (a, &ins, R_ARCH_OPTION_CODE);
 	mu_assert ("r_arch_encode", res);
 	mu_assert_eq (ins.size, 1, "encoded instruction size");
-	mu_assert_eq (r_strbuf_get (&ins.data)[0], 0x90, "encoded instruction size");
+	mu_assert_eq (r_strbuf_get (&ins.data)[0], (char)0x90, "encoded instruction size");
 
 	r_strbuf_setbin (&ins.data, (const ut8*)"\x2b", 1);
 	res = r_arch_decode (a, &ins, R_ARCH_OPTION_CODE);
